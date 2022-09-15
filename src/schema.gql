@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""Category model"""
+type Category {
+  """A unique identified."""
+  id: ID!
+
+  """Category name"""
+  name: String!
+}
+
+type Query {
+  getCategories: GetCategoriesResponseDtoUnion!
+}
+
+union GetCategoriesResponseDtoUnion = GetCategoriesResponseDto
+
+type GetCategoriesResponseDto {
+  categories: [Category!]!
+}

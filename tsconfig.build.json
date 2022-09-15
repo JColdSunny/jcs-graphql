@@ -2,5 +2,8 @@
   "extends": "./tsconfig.json",
   "exclude": [
     "jcs-graphql/node_modules",
-    "test", "dist", "**/*spec.ts"]
+    "test",
+    "dist",
+    "**/*spec.ts"
+  ]
 }

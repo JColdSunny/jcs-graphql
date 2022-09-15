@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "education/common/proto/education_common.proto";
+
+option java_package = "com.jcs.education.category.service.proto.v1";
+option java_multiple_files = true;
+
+service EducationCategoryService {
+  rpc GetCategories(GetCategoriesRequest) returns (GetCategoriesResponse);
+
+  rpc GetCategoryDetails(GetCategoryDetailsRequest) returns (GetCategoryDetailsResponse);
+}
+
+message GetCategoriesRequest {
+
+}
+
+message GetCategoriesResponse {
+  repeated Category categories = 1;
+}
+
+message GetCategoryDetailsRequest {
+  int32 category_id = 1;
+}
+
+message GetCategoryDetailsResponse {
+  repeated education.common.Course courses = 1;
+}
+
+message Category {
+  int32 category_id = 1;
+  string name = 2; 
+}
