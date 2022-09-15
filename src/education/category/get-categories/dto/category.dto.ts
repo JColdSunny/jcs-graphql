@@ -8,4 +8,9 @@ export class Category {
 
   @Field(() => String, { description: "Category name" })
   name: string;
+
+  constructor(props: Category) {
+    this.id = props.id
+    this.name = props.name
+  }
 }

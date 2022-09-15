@@ -24,6 +24,9 @@
       ],
       "@grpc/*": [
         "src/grpc/*"
+      ],
+      "@education/*": [
+        "src/education/*"
       ]
     }
   }

@@ -1,6 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import { GetCategoriesResponseDto, GetCategoriesResponseDtoUnion } from "../get-categories/interface";
-
 import {
   EducationCategoryServiceClient
 } from "@proto/education/education-category-service/proto/v1/education_category_service_grpc_pb";
@@ -9,7 +7,7 @@ import {
   GetCategoriesRequest, GetCategoriesResponse
 } from "@proto/education/education-category-service/proto/v1/education_category_service_pb";
 import { GrpcClient } from "@grpc/grpc.client";
-import { Category } from "../dto/category.dto";
+import { CategoryEntity } from "@education/category/service/entity/category.entity";
 
 @Injectable()
 export class CategoryService {
@@ -23,7 +21,7 @@ export class CategoryService {
     );
   }
 
-  async getCategories(): Promise<typeof GetCategoriesResponseDtoUnion> {
+  async getCategories(): Promise<CategoryEntity[]> {
     const response = await new Promise<GetCategoriesResponse>((resolve, reject) => {
       this.grpcClient.client.getCategories(new GetCategoriesRequest(), (error, response) => {
         if (error) {
@@ -34,12 +32,10 @@ export class CategoryService {
       });
     });
 
-    return new GetCategoriesResponseDto({
-      categories: response.getCategoriesList().map(this.mapToCat)
-    });
+    return response.getCategoriesList().map(this.mapToCategoryEntity);
   }
 
-  mapToCat(grpcCategory: GrpcCategory): Category {
+  private mapToCategoryEntity(grpcCategory: GrpcCategory): CategoryEntity {
     return {
       id: grpcCategory.getCategoryId(),
       name: grpcCategory.getName()

@@ -1,6 +1,7 @@
 import { Query, Resolver } from "@nestjs/graphql";
 import { CategoryService } from "../../service";
-import { GetCategoriesResponseDtoUnion } from "./get-categories.response.dto";
+import { GetCategoriesResponseDto, GetCategoriesResponseDtoUnion } from "./get-categories.response.dto";
+import { Category } from "@education/category/get-categories/dto/category.dto";
 
 @Resolver()
 export class GetCategoriesResolver {
@@ -10,7 +11,14 @@ export class GetCategoriesResolver {
 
   @Query(() => GetCategoriesResponseDtoUnion, { name: "getCategories" })
   async getCategories(): Promise<typeof GetCategoriesResponseDtoUnion> {
-    return this.categoryService.getCategories();
+    const response = await this.categoryService.getCategories();
+
+    return new GetCategoriesResponseDto({
+      categories: response.map(x => new Category({
+        id: x.id,
+        name: x.name
+      }))
+    });
   }
 
 }

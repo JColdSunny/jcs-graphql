@@ -1,5 +1,5 @@
 import { createUnionType, Field, ObjectType } from "@nestjs/graphql";
-import { Category } from "../../dto/category.dto";
+import { Category } from "../dto/category.dto";
 
 export const GetCategoriesResponseDtoUnion = createUnionType({
   name: "GetCategoriesResponseDtoUnion",
